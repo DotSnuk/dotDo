@@ -1,5 +1,5 @@
-import { format, compareAsc } from 'date-fns';
-import logMessage from './logger';
+import { format, add, compareAsc } from 'date-fns';
+import logMessage, { logDateMessage } from './logger';
 
 export default class ToDo {
   constructor(title) {
@@ -21,13 +21,20 @@ export default class ToDo {
     this._date = value;
   }
   get dateCreated() {
-    return format(this._date, 'dd/MM/yyyy');
+    return this._date;
   }
   set notes(value) {
     this._notes = value;
   }
   get notes() {
-    return logMessage(this._notes);
+    return this._notes;
   }
+  set dueDate(daysFromToday) {
+    this._dueDate = add(new Date(), { days: daysFromToday });
+  }
+  get dueDate() {
+    return this._dueDate;
+  }
+
   setCompleted() {}
 }

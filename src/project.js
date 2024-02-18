@@ -1,7 +1,9 @@
+import { sortDueDate } from './sorter.js';
+
 export default class Project {
   constructor(title, deletable = true) {
     this.title = title;
-    this.todoList = [];
+    this.list = [];
     this.deleteableBool = deletable;
   }
   set title(value) {
@@ -16,7 +18,13 @@ export default class Project {
   get deleteableBool() {
     return this._deletableBool;
   }
-  addTodo(todo) {
-    this.todoList.push(todo);
+  addToProjectList(obj) {
+    this.list.push(obj);
+  }
+  getListDueDate() {
+    const listWithDueDate = this.list.filter(
+      item => item.dueDate !== undefined,
+    );
+    return listWithDueDate;
   }
 }

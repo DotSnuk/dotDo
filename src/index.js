@@ -1,9 +1,15 @@
 import './style.css';
-import logMessage from './logger.js';
 import ToDo from './todo.js';
+import User from './user.js';
+import logMessage, { logDateMessage } from './logger.js';
+import { sortDueDate } from './sorter.js';
 
-logMessage('hello');
-const to = new ToDo('thing');
-console.log(to);
-console.log(to.dateCreated);
-to.notes = 'Hello';
+const snuk = new User('snuk');
+const second = new ToDo('second');
+second.dueDate = 4;
+const firstTodo = new ToDo('first');
+firstTodo.dueDate = 3;
+snuk.inbox.addToProjectList(second);
+snuk.inbox.addToProjectList(firstTodo);
+console.log(snuk.inbox.getListDueDate());
+console.log(sortDueDate(snuk.inbox.getListDueDate()));
