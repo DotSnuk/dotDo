@@ -12,4 +12,7 @@ export default class User {
   get name() {
     return this._name;
   }
+  addProject(project) {
+    this.projectList.push(project);
+  }
 }

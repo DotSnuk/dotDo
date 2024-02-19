@@ -18,13 +18,19 @@ export default function AppLogic(name) {
     }
     addToProject(todo);
   }
-  function getProjectList() {
+  function createProject(title) {
+    const project = new Project(title);
+    currentUser.addProject(project);
+  }
+  function getInboxList() {
     return currentUser.inbox.getProjectList();
   }
   function addToProject(todo) {
+    // should be able to select project, and default to inbox
     currentUser.inbox.addToProjectList(todo);
   }
   function _sortOptionalPara(todo, para) {
+    // can I break these two up?
     const paraParser = {
       dueDate: value => {
         todo.dueDate = value;
@@ -39,5 +45,5 @@ export default function AppLogic(name) {
         : logMessage('not in paraParser');
     }
   }
-  return { getUser, getProjectList, createTodo };
+  return { getUser, getInboxList, createTodo, createProject };
 }
