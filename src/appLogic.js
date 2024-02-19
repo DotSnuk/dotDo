@@ -41,21 +41,3 @@ export default function AppLogic(name) {
   }
   return { getUser, getProjectList, createTodo };
 }
-
-// export const appLogic = name => {
-//   const currentUser = new User(name);
-//   const getUser = () => {
-//     console.log(currentUser);
-//   };
-//   return { getUser };
-// };
-
-// export default function AppLogic(user) {
-//   const currentUser = user;
-
-//   const createTodo = title => {
-//     const todo = new ToDo(title);
-//     return todo;
-//   };
-//   return { createTodo };
-// }
