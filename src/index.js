@@ -6,7 +6,8 @@ import { sortDueDate } from './sorter.js';
 import AppLogic from './appLogic.js';
 
 const app = AppLogic('Hampus');
-app.getUser();
+app.createTodo('asd', { dueDate: 'asd' }, { priority: 2 });
+logMessage(app.getProjectList());
 // const second = new ToDo('second');
 // second.dueDate = 4;
 // const firstTodo = new ToDo('first');

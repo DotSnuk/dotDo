@@ -12,6 +12,12 @@ export default class Project {
   get title() {
     return this._title;
   }
+  set list(value) {
+    this._list = value;
+  }
+  get list() {
+    return this._list;
+  }
   set deleteableBool(bool) {
     this._deletableBool = bool;
   }
@@ -20,6 +26,9 @@ export default class Project {
   }
   addToProjectList(obj) {
     this.list.push(obj);
+  }
+  getProjectList() {
+    return this.list;
   }
   getListDueDate() {
     const listWithDueDate = this.list.filter(

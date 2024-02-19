@@ -29,12 +29,11 @@ export default class ToDo {
   get notes() {
     return this._notes;
   }
-  set dueDate(daysFromToday) {
-    this._dueDate = add(new Date(), { days: daysFromToday });
+  set dueDate(value) {
+    this._dueDate = value;
   }
   get dueDate() {
     return this._dueDate;
   }
-
   setCompleted() {}
 }
