@@ -1,4 +1,4 @@
-import Project from './project.js';
+import Project from './Project.js';
 
 export default class User {
   constructor(name) {

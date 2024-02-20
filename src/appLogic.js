@@ -1,6 +1,6 @@
-import ToDo from './todo.js';
-import User from './user.js';
-import Project from './project.js';
+import ToDo from './Todo.js';
+import User from './User.js';
+import Project from './Project.js';
 import logMessage, { logDateMessage } from './logger.js';
 
 export default function AppLogic(name) {
@@ -21,6 +21,9 @@ export default function AppLogic(name) {
   function createProject(title) {
     const project = new Project(title);
     currentUser.addProject(project);
+  }
+  function tempName(value) {
+    currentUser.inbox.removeAndReturn(value);
   }
   function getInboxList() {
     return currentUser.inbox.getProjectList();
@@ -45,5 +48,15 @@ export default function AppLogic(name) {
         : logMessage('not in paraParser');
     }
   }
-  return { getUser, getInboxList, createTodo, createProject };
+  function getSortedList() {
+    return currentUser.inbox.getSortedList;
+  }
+  return {
+    getUser,
+    getInboxList,
+    createTodo,
+    createProject,
+    getSortedList,
+    tempName,
+  };
 }

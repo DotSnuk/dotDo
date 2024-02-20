@@ -1,4 +1,4 @@
-import { sortDueDate } from './sorter.js';
+import { sortDueDate, sortByProperty } from './sorter.js';
 
 export default class Project {
   constructor(title, deletable = true) {
@@ -35,5 +35,12 @@ export default class Project {
       item => item.dueDate !== undefined,
     );
     return listWithDueDate;
+  }
+  removeAndReturn(index) {
+    return this.list.splice(index, 1);
+  }
+
+  getSortedList() {
+    return this.list.sort(sortByProperty('dueDate'));
   }
 }
