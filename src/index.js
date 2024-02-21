@@ -10,6 +10,6 @@ app.createTodo('cook dinner', { dueDate: 2 }, { priority: 1 });
 app.createTodo('phone call', { dueDate: 0 }, { priority: 0 });
 app.createProject('second proj');
 logMessage(app.getInboxList());
-app.tempName(1);
+app.removeTodo(1);
 logMessage(app.getInboxList());
 // app.logSortedList();

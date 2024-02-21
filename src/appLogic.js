@@ -22,15 +22,14 @@ export default function AppLogic(name) {
     const project = new Project(title);
     currentUser.addProject(project);
   }
-  function tempName(value) {
-    currentUser.inbox.removeAndReturn(value);
+  function removeTodo(index, projectIndex = 0) {
+    currentUser.projectList[projectIndex].removeAndReturn(index);
   }
-  function getInboxList() {
-    return currentUser.inbox.getProjectList();
+  function getInboxList(projectIndex = 0) {
+    return currentUser.projectList[projectIndex].getProjectList();
   }
-  function addToProject(todo) {
-    // should be able to select project, and default to inbox
-    currentUser.inbox.addToProjectList(todo);
+  function addToProject(todo, projectIndex = 0) {
+    currentUser.projectList[projectIndex].addToProjectList(todo);
   }
   function _sortOptionalPara(todo, para) {
     // can I break these two up?
@@ -57,6 +56,6 @@ export default function AppLogic(name) {
     createTodo,
     createProject,
     getSortedList,
-    tempName,
+    removeTodo,
   };
 }

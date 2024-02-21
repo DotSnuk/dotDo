@@ -3,3 +3,27 @@
   font-family: 'Poppins', sans-serif;
   color: red;
 }
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+#container {
+  box-sizing: border-box;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 5fr;
+  grid-template-rows: 1fr 9fr;
+  height: 100%;
+  width: 100%;
+}
+#header {
+  grid-area: 1 / 1 / 2 / 3;
+}
+#sidebar {
+  grid-area: 2 / 1 / 4 / 2;
+}
+#content {
+  grid-area: 2 / 2 / 4 / 3;
+}
