@@ -9,7 +9,7 @@ app.createTodo('laundry', { dueDate: 3 }, { priority: 1 });
 app.createTodo('cook dinner', { dueDate: 2 }, { priority: 1 });
 app.createTodo('phone call', { dueDate: 0 }, { priority: 0 });
 app.createProject('second proj');
-logMessage(app.getInboxList());
+
 app.removeTodo(1);
-logMessage(app.getInboxList());
+logMessage(app.getActiveProjectList());
 // app.logSortedList();

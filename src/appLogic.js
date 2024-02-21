@@ -5,9 +5,17 @@ import logMessage, { logDateMessage } from './logger.js';
 
 export default function AppLogic(name) {
   const currentUser = new User(name);
+  let activeProject = currentUser.inbox;
 
   function getUser() {
     return currentUser;
+  }
+  function changeActiveProject(projectIndex = 'inbox') {
+    if (projectIndex !== 'inbox') {
+      activeProject = currentUser.projectList[projectIndex];
+    } else {
+      activeProject = currentUser.inbox;
+    }
   }
   function createTodo(title, ...optionalPara) {
     const todo = new ToDo(title);
@@ -22,14 +30,14 @@ export default function AppLogic(name) {
     const project = new Project(title);
     currentUser.addProject(project);
   }
-  function removeTodo(index, projectIndex = 0) {
-    currentUser.projectList[projectIndex].removeAndReturn(index);
+  function removeTodo(index) {
+    activeProject.removeAndReturn(index);
   }
-  function getInboxList(projectIndex = 0) {
-    return currentUser.projectList[projectIndex].getProjectList();
+  function getActiveProjectList() {
+    return activeProject.getProjectList();
   }
-  function addToProject(todo, projectIndex = 0) {
-    currentUser.projectList[projectIndex].addToProjectList(todo);
+  function addToProject(todo) {
+    activeProject.addToProjectList(todo);
   }
   function _sortOptionalPara(todo, para) {
     // can I break these two up?
@@ -52,7 +60,8 @@ export default function AppLogic(name) {
   }
   return {
     getUser,
-    getInboxList,
+    changeActiveProject,
+    getActiveProjectList,
     createTodo,
     createProject,
     getSortedList,
