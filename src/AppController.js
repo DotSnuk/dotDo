@@ -6,15 +6,10 @@ export default class AppController {
   constructor() {
     this.model = new Model();
     this.view = new View();
-    console.log(this);
-  }
-  logg() {
-    console.log('works');
   }
 
-  handleAddUser(data, callback) {
-    const dataFromModel = this.model.addUser(data);
-    this.view.update(dataFromModel, callback);
+  handleAddUser(data) {
+    this.model.addUser(data);
   }
   // set user(name) {
   //   this._user = { name };

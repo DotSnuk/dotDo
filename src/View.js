@@ -1,7 +1,6 @@
 export default class View {
   constructor(controller) {
     this.content = document.getElementById('content');
-    this.controller = controller;
     this.init();
   }
   init() {
@@ -12,9 +11,7 @@ export default class View {
     this.content.appendChild(button);
     this.content.appendChild(div);
   }
-  setController(controller) {
-    this.controller = controller;
-  }
+
   update(data, callback) {
     callback(data);
   }
@@ -43,7 +40,7 @@ export default class View {
   }
   buttonFunction() {
     const dataFromText = document.getElementById('text');
-    console.log(this.controller);
+
     // this.controller.handleAddUser(dataFromText);
   }
   // initUser() {
