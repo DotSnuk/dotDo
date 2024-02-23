@@ -31,7 +31,14 @@ export default function AppLogic(name) {
     currentUser.addProject(project);
   }
   function removeTodo(index) {
-    activeProject.removeAndReturn(index);
+    return activeProject.removeAndReturn(index);
+  }
+  function moveTodo(todoIndex, targetProjectIndex) {
+    const todoToMove = removeTodo(todoIndex);
+    currentUser.projectList[targetProjectIndex].addToProjectList(todoToMove);
+  }
+  function getProjects() {
+    return currentUser.projectList;
   }
   function getActiveProjectList() {
     return activeProject.getProjectList();
@@ -55,16 +62,27 @@ export default function AppLogic(name) {
         : logMessage('not in paraParser');
     }
   }
+  function createDummyThings() {
+    createTodo('clean', { dueDate: 1 }, { priority: 2 });
+    createTodo('laundry', { dueDate: 3 }, { priority: 1 });
+    createTodo('cook dinner', { dueDate: 2 }, { priority: 1 });
+    createTodo('phone call', { dueDate: 0 }, { priority: 0 });
+    createProject('Second');
+    createProject('Third project');
+  }
   function getSortedList() {
     return currentUser.inbox.getSortedList;
   }
   return {
     getUser,
+    getProjects,
     changeActiveProject,
     getActiveProjectList,
+    moveTodo,
     createTodo,
     createProject,
     getSortedList,
     removeTodo,
+    createDummyThings,
   };
 }
