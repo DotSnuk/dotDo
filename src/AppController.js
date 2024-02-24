@@ -6,8 +6,23 @@ export default class AppController {
   constructor() {
     this.model = new Model();
     this.view = new View();
+    this.view.bindAddTodo(this.handleAddTodo);
+    this.view.bindGetInbox(this.handleGetInbox);
   }
 
+  // sorter = handler => {
+  //   const handl = {
+  //     todo: this.handleUser(data),
+  //   };
+  //   return handl[handler];
+  // };
+  handleGetInbox = () => {
+    return this.model.getInbox();
+  };
+
+  handleAddTodo = data => {
+    return this.model.addUser(data);
+  };
   handleAddUser(data) {
     this.model.addUser(data);
   }
