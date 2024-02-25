@@ -65,8 +65,7 @@ export default class View {
     const divWrapper = this.createElement('div');
     divWrapper.classList.add('todo');
     for (const [key, value] of Object.entries(object)) {
-      if (this._objectSorter(key, value)) {
-        // doesn't need to run twice
+      if (key === '_title' || key === 'completedBool') {
         divWrapper.appendChild(this._objectSorter(key, value));
       }
     }

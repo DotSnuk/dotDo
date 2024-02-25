@@ -36,3 +36,16 @@ ul {
   grid-template-columns: 100%;
   grid-template-rows: 9fr 1fr;
 }
+#todo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.todo {
+  background-color: lightgreen;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 9fr 1fr;
+}
