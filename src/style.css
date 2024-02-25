@@ -12,6 +12,9 @@ body {
 a {
   text-decoration: none;
 }
+ul {
+  list-style-type: none;
+}
 #container {
   box-sizing: border-box;
   border: 1px solid black;
@@ -21,8 +24,36 @@ a {
   height: 100%;
   width: 100%;
 }
-ul {
-  list-style-type: none;
+#input {
+  margin: 0;
+  padding: 0;
+  display: grid;
+
+  width: 90%;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 9fr 1fr;
+}
+#input input {
+  width: 100%;
+  height: 40%;
+  box-shadow: 1px 1px 1px black;
+}
+#input input[type='text'] {
+  font-family: 'Poppins', sans-serif;
+  background-color: grey;
+  border: none;
+  font-size: 14px;
+  padding: 10px 10px;
+  margin: 20px 20px;
+  box-sizing: border-box;
+}
+#input input[type='button'] {
+  border: none;
+  background-color: grey;
+}
+#input input[type='button']:active {
+  transform: translateY(1px) translateX(1px);
 }
 #header {
   grid-area: 1 / 1 / 2 / 3;
@@ -33,11 +64,13 @@ ul {
 #content {
   grid-area: 2 / 2 / 4 / 3;
   display: grid;
+  justify-items: center;
   grid-template-columns: 100%;
   grid-template-rows: 9fr 1fr;
 }
 #todo-container {
   display: flex;
+  width: 90%;
   flex-direction: column;
   align-items: center;
   gap: 4px;

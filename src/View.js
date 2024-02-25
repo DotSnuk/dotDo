@@ -45,21 +45,20 @@ export default class View {
     });
     this.content.appendChild(container);
     this.content.appendChild(wrapper);
-
-    // const text = this.createElement('input', 'text');
-    // text.type = 'text';
-    // this.content.appendChild(text);
-    // const button = this.createElement('button', 'todo');
-    // button.textContent = 'Add todo';
-    // this.content.appendChild(button);
-    // const button2 = this.createElement('button', 'inbox');
-    // button2.textContent = 'Get inbox';
-    // this.content.appendChild(button2);
-    // const div = this.createElement('div');
-    // div.id = 'fill';
-    // this.content.appendChild(div);
+    this.inputWrapper();
+  }
+  inputWrapper() {
+    const input = document.getElementById('input');
+    const textfield = this.createElement('input');
+    const button = this.createElement('input');
+    textfield.setAttribute('type', 'text');
+    button.setAttribute('type', 'button');
+    button.value = 'add';
+    input.appendChild(textfield);
+    input.appendChild(button);
   }
   objectToDiv(object) {
+    // perhaps add what to check in the if statement
     const divWrapper = this.createElement('div');
     divWrapper.classList.add('todo');
     for (const [key, value] of Object.entries(object)) {
