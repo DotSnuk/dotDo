@@ -41,26 +41,6 @@ export default class View {
     div.id = 'fill';
     this.content.appendChild(div);
   }
-  createButton(value, id) {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.textContent = value;
-    button.id = id;
-    button.classList.add('todo');
-    // button.onclick = this.buttonFunction;
-    return button;
-  }
-  createInputText(id) {
-    const textField = document.createElement('input');
-    textField.type = 'text';
-    textField.id = id;
-    return textField;
-  }
-  createDiv(id) {
-    const div = document.createElement('div');
-    div.id = id;
-    return div;
-  }
   bindAddTodo(callback) {
     document.body.addEventListener('click', event => {
       if (event.target.classList.contains('todo')) {
