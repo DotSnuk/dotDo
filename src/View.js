@@ -91,6 +91,8 @@ export default class View {
     return keyParser[key] ? keyParser[key](value) : false;
   }
   bindAddTodo(callback) {
+    // add enter functionallity
+    // https://stackoverflow.com/questions/51791167/combining-mouse-click-and-enter-key-press-in-the-same-event-listener
     document.body.addEventListener('click', event => {
       if (event.target.id === 'add-todo') {
         this.addTodo(callback);
