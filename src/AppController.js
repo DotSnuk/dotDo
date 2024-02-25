@@ -8,6 +8,7 @@ export default class AppController {
     this.view = new View();
     this.view.bindAddTodo(this.handleAddTodo);
     this.view.bindGetInbox(this.handleGetInbox);
+    this.view.init(this.model.getInbox());
   }
 
   // sorter = handler => {

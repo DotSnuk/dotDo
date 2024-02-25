@@ -4,11 +4,12 @@ export default class View {
   constructor() {
     this.content = document.getElementById('content');
     this.sidebar = document.getElementById('sidebar');
-    this.init();
+    // maybe you don't need to run init in constructor? have the controller call init with
+    // the placeholder todo's
   }
-  init() {
+  init(todos) {
     this.initSidebar();
-    this.initContent();
+    this.initContent(todos);
   }
   createElement(element, ...classes) {
     const newElement = document.createElement(element);
@@ -23,23 +24,73 @@ export default class View {
   initSidebar() {
     const ul = this.createElement('ul');
     this.sidebar.appendChild(ul);
-    const li = this.createElement('li');
-    li.innerText = 'inbox';
-    ul.appendChild(li);
+    for (let i = 0; i < 2; i++) {
+      const li = this.createElement('li');
+      ul.appendChild(li);
+      const a = this.createElement('a');
+      a.href = '#';
+      if (i === 0) {
+        a.innerText = 'Inbox';
+      } else {
+        a.innerText = 'Projects';
+      }
+      li.appendChild(a);
+    }
   }
-  initContent() {
-    const text = this.createElement('input', 'text');
-    text.type = 'text';
-    this.content.appendChild(text);
-    const button = this.createElement('button', 'todo');
-    button.textContent = 'Add todo';
-    this.content.appendChild(button);
-    const button2 = this.createElement('button', 'inbox');
-    button2.textContent = 'Get inbox';
-    this.content.appendChild(button2);
-    const div = this.createElement('div');
-    div.id = 'fill';
-    this.content.appendChild(div);
+  initContent(todos) {
+    const container = this.createElement('div');
+    const wrapper = this.createElement('div');
+    container.id = 'todo-container';
+    wrapper.id = 'input';
+    todos.forEach(todo => {
+      container.appendChild(this.objectToDiv(todo));
+    });
+    this.content.appendChild(container);
+    this.content.appendChild(wrapper);
+
+    // const text = this.createElement('input', 'text');
+    // text.type = 'text';
+    // this.content.appendChild(text);
+    // const button = this.createElement('button', 'todo');
+    // button.textContent = 'Add todo';
+    // this.content.appendChild(button);
+    // const button2 = this.createElement('button', 'inbox');
+    // button2.textContent = 'Get inbox';
+    // this.content.appendChild(button2);
+    // const div = this.createElement('div');
+    // div.id = 'fill';
+    // this.content.appendChild(div);
+  }
+  objectToDiv(object) {
+    const divWrapper = this.createElement('div');
+    divWrapper.classList.add('todo');
+    for (const [key, value] of Object.entries(object)) {
+      if (this._objectSorter(key, value)) {
+        // doesn't need to run twice
+        divWrapper.appendChild(this._objectSorter(key, value));
+      }
+    }
+    return divWrapper;
+  }
+  _objectSorter(key, value) {
+    const keyParser = {
+      _title: value => {
+        const div = this.createElement('div');
+        div.classList.add('title');
+        div.innerText = value;
+        return div;
+      },
+      completedBool: value => {
+        const div = this.createElement('div');
+        const checkbox = this.createElement('input');
+        checkbox.setAttribute('type', 'checkbox');
+        value ? (checkbox.checked = true) : (checkbox.checked = false);
+        div.appendChild(checkbox);
+        div.classList.add('completed');
+        return div;
+      },
+    };
+    return keyParser[key] ? keyParser[key](value) : false;
   }
   bindAddTodo(callback) {
     document.body.addEventListener('click', event => {
@@ -60,7 +111,15 @@ export default class View {
   }
   fillWithInbox(callback) {
     const div = document.getElementById('fill');
-    div.innerText = JSON.stringify(callback(), null, '\t');
+    const dataFromModel = callback();
+    let todo;
+    dataFromModel.forEach(data => {
+      for (const [key, value] of Object.entries(data)) {
+        todo += `${key} ${value}`;
+      }
+      todo += '\n';
+    });
+    div.innerText = todo;
   }
 
   buttonFunction(callback) {
@@ -72,8 +131,4 @@ export default class View {
     div.innerText = JSON.stringify(newData, null, '\t');
     // this.controller.handleAddUser(dataFromText);
   }
-  // initUser() {
-  //   console.log('Enter your username: ');
-  //   return prompt('username');
-  // }
 }
