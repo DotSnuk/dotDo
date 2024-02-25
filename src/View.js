@@ -4,8 +4,6 @@ export default class View {
   constructor() {
     this.content = document.getElementById('content');
     this.sidebar = document.getElementById('sidebar');
-    // maybe you don't need to run init in constructor? have the controller call init with
-    // the placeholder todo's
   }
   init(todos) {
     this.initSidebar();
