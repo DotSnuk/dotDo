@@ -22,7 +22,7 @@ export default class AppController {
   };
 
   handleAddTodo = data => {
-    return this.model.addUser(data);
+    return this.model.addTodo(data);
   };
   handleAddUser(data) {
     this.model.addUser(data);

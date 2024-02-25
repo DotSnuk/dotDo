@@ -40,20 +40,22 @@ export default class View {
     const wrapper = this.createElement('div');
     container.id = 'todo-container';
     wrapper.id = 'input';
-    todos.forEach(todo => {
-      container.appendChild(this.objectToDiv(todo));
-    });
     this.content.appendChild(container);
     this.content.appendChild(wrapper);
+    todos.forEach(todo => {
+      this.appendTodo(this.objectToDiv(todo));
+    });
     this.inputWrapper();
   }
+
   inputWrapper() {
     const input = document.getElementById('input');
-    const textfield = this.createElement('input');
+    const textfield = this.createElement('input', 'text', 'todo');
     const button = this.createElement('input');
     textfield.setAttribute('type', 'text');
     button.setAttribute('type', 'button');
     button.value = 'add';
+    button.id = 'add-todo';
     input.appendChild(textfield);
     input.appendChild(button);
   }
@@ -90,8 +92,8 @@ export default class View {
   }
   bindAddTodo(callback) {
     document.body.addEventListener('click', event => {
-      if (event.target.classList.contains('todo')) {
-        this.buttonFunction(callback);
+      if (event.target.id === 'add-todo') {
+        this.addTodo(callback);
       }
     });
   }
@@ -117,14 +119,20 @@ export default class View {
     });
     div.innerText = todo;
   }
-
-  buttonFunction(callback) {
-    const dataFromText = document.querySelector('.text').value;
-    const div = document.getElementById('fill');
-    const newData = callback(dataFromText);
-    console.log(newData);
-    console.log(JSON.stringify(newData, null, '\t'));
-    div.innerText = JSON.stringify(newData, null, '\t');
+  appendTodo(todoDiv) {
+    const todoContainer = document.getElementById('todo-container');
+    todoContainer.appendChild(todoDiv);
+  }
+  addTodo(callback) {
+    const dataFromText = document.querySelector('.text.todo').value;
+    if (dataFromText === '') return;
+    const newTodo = callback(dataFromText);
+    this.appendTodo(this.objectToDiv(newTodo));
+    // const div = document.getElementById('fill');
+    // const newData = callback(dataFromText);
+    // console.log(newData);
+    // console.log(JSON.stringify(newData, null, '\t'));
+    // div.innerText = JSON.stringify(newData, null, '\t');
     // this.controller.handleAddUser(dataFromText);
   }
 }

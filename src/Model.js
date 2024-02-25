@@ -1,7 +1,6 @@
 import ToDo from './Todo.js';
 
 export default class Model {
-  // testing
   constructor() {
     // this.currentUser;
     this.inbox = this.createProject('Inbox');
@@ -32,6 +31,7 @@ export default class Model {
       // come back to this one (sortOptionalPara)
     }
     this.addToProject(todo);
+    return todo;
   }
   getInbox() {
     return this.inbox.projectList;
