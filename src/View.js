@@ -128,11 +128,5 @@ export default class View {
     if (dataFromText === '') return;
     const newTodo = callback(dataFromText);
     this.appendTodo(this.objectToDiv(newTodo));
-    // const div = document.getElementById('fill');
-    // const newData = callback(dataFromText);
-    // console.log(newData);
-    // console.log(JSON.stringify(newData, null, '\t'));
-    // div.innerText = JSON.stringify(newData, null, '\t');
-    // this.controller.handleAddUser(dataFromText);
   }
 }
