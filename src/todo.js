@@ -30,8 +30,8 @@ export default class ToDo {
   get notes() {
     return this._notes;
   }
-  set dueDate(daysFromToday) {
-    this._dueDate = add(new Date(), { days: daysFromToday });
+  set dueDate(date) {
+    this._dueDate = new Date(date);
   }
   get dueDate() {
     return this._dueDate;

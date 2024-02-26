@@ -60,26 +60,25 @@ ul {
   width: 90%;
   justify-items: center;
   align-items: center;
-  grid-template-columns: 9fr 1fr;
+  grid-template-columns: 8fr 2fr 1fr;
 }
 #input input {
+  border: none;
+  background-color: var(--lemon-chiffon);
   font-family: 'Poppins', sans-serif;
   width: 100%;
   height: 40%;
   box-shadow: 1px 1px 1px black;
 }
 #input input[type='text'] {
-  background-color: var(--lemon-chiffon);
-  border: none;
   font-size: 14px;
   padding: 10px 10px;
   margin: 20px 20px;
   box-sizing: border-box;
 }
-#input input[type='button'] {
-  border: none;
+/* #input input[type='button'] {
   background-color: var(--lemon-chiffon);
-}
+} */
 #input input[type='button']:active {
   transform: translateY(1px) translateX(1px);
 }

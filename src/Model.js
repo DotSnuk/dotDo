@@ -30,8 +30,8 @@ export default class Model {
   addTodo(title, ...optional) {
     const todo = new ToDo(this.idCounter, title);
     this.increaseIdCounter();
-    if (optional) {
-      // come back to this one (sortOptionalPara)
+    if (optional.length > 0) {
+      todo.dueDate = optional[0];
     }
     this.addToProject(todo);
     return todo;

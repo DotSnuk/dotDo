@@ -1,4 +1,5 @@
 import './style.css';
+import { startOfToday, format } from 'date-fns';
 
 export default class View {
   constructor() {
@@ -59,12 +60,18 @@ export default class View {
   inputWrapper() {
     const input = document.getElementById('input');
     const textfield = this.createElement('input', 'text', 'todo');
+    const inputDate = this.createElement('input', 'date', 'todo');
     const button = this.createElement('input');
     textfield.setAttribute('type', 'text');
+    inputDate.setAttribute('type', 'date');
+    const date = format(new Date(), 'yyyy-MM-dd');
+    inputDate.min = date;
+    inputDate.innerText = 'Due';
     button.setAttribute('type', 'button');
     button.value = 'add';
     button.id = 'add-todo';
     input.appendChild(textfield);
+    input.appendChild(inputDate);
     input.appendChild(button);
   }
   objectToDiv(object) {
@@ -137,13 +144,25 @@ export default class View {
   addTodo(callback) {
     const dataFromText = document.querySelector('.text.todo').value;
     if (dataFromText === '') return;
-    const newTodo = callback(dataFromText);
+    const date = document.querySelector('.date.todo').value;
+    const check = () => {
+      if (date !== '') {
+        return callback(dataFromText, date);
+      } else {
+        return callback(dataFromText);
+      }
+    };
+
+    // console.log(date.value);
+    const newTodo = check();
     this.appendTodo(this.objectToDiv(newTodo));
-    this._resetTextInput();
+    this._resetInput();
   }
 
-  _resetTextInput() {
+  _resetInput() {
     const textInput = document.querySelector('.text.todo');
+    const dateInput = document.querySelector('.date.todo');
+    dateInput.value = '';
     textInput.value = '';
   }
 }

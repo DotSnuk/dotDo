@@ -24,8 +24,8 @@ export default class AppController {
     this.model.switchComplete(todoId);
   };
 
-  handleAddTodo = data => {
-    return this.model.addTodo(data);
+  handleAddTodo = (data, ...option) => {
+    return this.model.addTodo(data, ...option);
   };
   handleAddUser(data) {
     this.model.addUser(data);
