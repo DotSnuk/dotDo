@@ -8,6 +8,7 @@ export default class View {
   init(todos) {
     this.initSidebar();
     this.initContent(todos);
+    this.initHeader();
   }
   createElement(element, ...classes) {
     const newElement = document.createElement(element);
@@ -18,6 +19,13 @@ export default class View {
   }
   addClass(element, newClass) {
     element.classList.add(newClass);
+  }
+  initHeader() {
+    const header = document.getElementById('header');
+    const titleWrapper = this.createElement('div');
+    titleWrapper.id = 'logo';
+    titleWrapper.innerText = 'dotDo';
+    header.appendChild(titleWrapper);
   }
   initSidebar() {
     const ul = this.createElement('ul');
@@ -64,12 +72,14 @@ export default class View {
     const divWrapper = this.createElement('div');
     divWrapper.classList.add('todo');
     for (const [key, value] of Object.entries(object)) {
+      if (key === 'id') divWrapper.dataset.id = value;
       if (key === '_title' || key === 'completedBool') {
         divWrapper.appendChild(this._objectSorter(key, value));
       }
     }
     return divWrapper;
   }
+
   _objectSorter(key, value) {
     const keyParser = {
       _title: value => {
@@ -99,16 +109,15 @@ export default class View {
       }
     });
   }
-  bindGetInbox(callback) {
+  bindSwitchComplete(callback) {
     document.body.addEventListener('click', event => {
-      if (
-        event.target.tagName === 'BUTTON' &&
-        event.target.classList.contains('inbox')
-      ) {
-        this.fillWithInbox(callback);
+      if (event.target.type === 'checkbox') {
+        const todoId = event.target.closest('.todo').dataset.id;
+        callback(todoId);
       }
     });
   }
+
   fillWithInbox(callback) {
     const div = document.getElementById('fill');
     const dataFromModel = callback();
@@ -130,5 +139,11 @@ export default class View {
     if (dataFromText === '') return;
     const newTodo = callback(dataFromText);
     this.appendTodo(this.objectToDiv(newTodo));
+    this._resetTextInput();
+  }
+
+  _resetTextInput() {
+    const textInput = document.querySelector('.text.todo');
+    textInput.value = '';
   }
 }

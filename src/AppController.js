@@ -7,7 +7,7 @@ export default class AppController {
     this.model = new Model();
     this.view = new View();
     this.view.bindAddTodo(this.handleAddTodo);
-    this.view.bindGetInbox(this.handleGetInbox);
+    this.view.bindSwitchComplete(this.handleSwitchComplete);
     this.view.init(this.model.getInbox());
   }
 
@@ -19,6 +19,9 @@ export default class AppController {
   // };
   handleGetInbox = () => {
     return this.model.getInbox();
+  };
+  handleSwitchComplete = todoId => {
+    this.model.switchComplete(todoId);
   };
 
   handleAddTodo = data => {

@@ -2,7 +2,7 @@ import ToDo from './Todo.js';
 
 export default class Model {
   constructor() {
-    // this.currentUser;
+    this.idCounter = 0;
     this.inbox = this.createProject('Inbox');
     this.projects = [];
     this.init();
@@ -13,7 +13,9 @@ export default class Model {
     this.addTodo('phone call');
     this.addTodo('cook dinner');
     this.addTodo('laundry');
-    this.newProject('New website');
+  }
+  increaseIdCounter() {
+    this.idCounter++;
   }
   createProject(title) {
     const project = { title, projectList: [] };
@@ -26,12 +28,29 @@ export default class Model {
     project.projectList.push(todo);
   }
   addTodo(title, ...optional) {
-    const todo = new ToDo(title);
+    const todo = new ToDo(this.idCounter, title);
+    this.increaseIdCounter();
     if (optional) {
       // come back to this one (sortOptionalPara)
     }
     this.addToProject(todo);
     return todo;
+  }
+  switchComplete(todoId) {
+    // can be optimized. if projects.length > 0...
+    // might not need to mergelists, but works for now
+    const mergedList = this.getAllProjectsMerged();
+    const todo = mergedList.find(todo => todo.id === parseInt(todoId));
+    todo.completedBool = !todo.completedBool;
+    console.log(todo);
+  }
+  getAllProjectsMerged() {
+    let projectsList = [];
+    projectsList = projectsList.concat(this.inbox.projectList);
+    this.projects.forEach(project => {
+      projectsList = projectsList.concat(project.projectList);
+    });
+    return projectsList;
   }
   getInbox() {
     return this.inbox.projectList;

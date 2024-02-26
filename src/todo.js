@@ -2,7 +2,8 @@ import { format, add, compareAsc } from 'date-fns';
 import logMessage, { logDateMessage } from './logger';
 
 export default class ToDo {
-  constructor(title) {
+  constructor(id, title) {
+    this.id = id;
     this.title = title;
     this.priority;
     this.description;
@@ -35,5 +36,4 @@ export default class ToDo {
   get dueDate() {
     return this._dueDate;
   }
-  setCompleted() {}
 }
