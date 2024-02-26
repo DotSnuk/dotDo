@@ -138,7 +138,6 @@ input[type="checkbox"] {
   border: none;
   outline: 1px solid;
   gap: 0;
-
   font-size: 20px;
   width: 1.15em;
   height: 1.15em;
@@ -154,7 +153,13 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked::before {
   transform: scale(1);
 } */
-
+.clicked {
+  flex-basis: 80px;
+  transition: 60ms;
+}
+.clicked::after {
+  transition: 100ms;
+}
 .todo > .title {
   flex-grow: 1;
 }

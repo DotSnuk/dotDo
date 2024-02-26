@@ -84,7 +84,21 @@ export default class View {
         divWrapper.appendChild(this._objectSorter(key, value));
       }
     }
+    divWrapper.addEventListener('click', event => {
+      // event.currentTarget.classList.add('clicked')
+      this.divClick(event)
+    })
     return divWrapper;
+  }
+  divClick(event){
+    if (!event.currentTarget.closest('.todo').classList.contains('clicked')){
+      event.currentTarget.classList.add('clicked')
+    } else {
+      event.currentTarget.classList.remove('clicked')
+    }
+    // if (!event.target.closest('.todo').classList.contains('clicked')){
+    //   event.target.classList.add('clicked')
+    // }
   }
 
   _objectSorter(key, value) {
