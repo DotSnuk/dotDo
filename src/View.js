@@ -80,7 +80,7 @@ export default class View {
     divWrapper.classList.add('todo');
     for (const [key, value] of Object.entries(object)) {
       if (key === 'id') divWrapper.dataset.id = value;
-      if (key === '_title' || key === 'completedBool') {
+      if (key === '_title' || key === '_dueDate' || key === 'completedBool' ) {
         divWrapper.appendChild(this._objectSorter(key, value));
       }
     }
@@ -93,6 +93,12 @@ export default class View {
         const div = this.createElement('div');
         div.classList.add('title');
         div.innerText = value;
+        return div;
+      },
+      _dueDate: value => {
+        const div = this.createElement('div');
+        div.classList.add('duedate');
+        div.innerText = format(value, 'yyyy-MM-dd');
         return div;
       },
       completedBool: value => {
@@ -124,7 +130,6 @@ export default class View {
       }
     });
   }
-
   fillWithInbox(callback) {
     const div = document.getElementById('fill');
     const dataFromModel = callback();
@@ -152,7 +157,6 @@ export default class View {
         return callback(dataFromText);
       }
     };
-
     // console.log(date.value);
     const newTodo = check();
     this.appendTodo(this.objectToDiv(newTodo));

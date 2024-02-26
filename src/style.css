@@ -56,7 +56,6 @@ ul {
   margin: 0;
   padding: 0;
   display: grid;
-
   width: 90%;
   justify-items: center;
   align-items: center;
@@ -101,29 +100,66 @@ input:focus {
   justify-items: center;
   grid-template-columns: 100%;
   grid-template-rows: 9fr 1fr;
+  overflow: hidden;
 }
 #todo-container {
   box-sizing: border-box;
-  margin: 20px;
   display: flex;
+  gap: 5px;
   width: 90%;
-  flex-direction: column;
   align-items: center;
-  overflow-y: hidden;
-  gap: 4px;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 .todo {
   background-color: var(--non-photo-blue);
+  flex-shrink: 0;
   box-sizing: border-box;
   align-items: center;
   padding-left: 10px;
+  padding-right: 10px;
   /* height: 30px; */
   flex-basis: 40px;
   border: 1px solid black;
   width: 100%;
-  display: grid;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  /* display: grid;
   grid-template-rows: 100%;
-  grid-template-columns: 9fr 1fr;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+  grid-template-columns: 9fr 1fr; */
+}
+input[type="checkbox"] {
+  display: grid;
+  place-content: center;
+  border: none;
+  outline: 1px solid;
+  gap: 0;
+
+  font-size: 20px;
+  width: 1.15em;
+  height: 1.15em;
+
+}
+/* input[type="checkbox"]::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  transform: scale(0);
+  box-shadow: inset 1em 1em var(--color-pastel-green);
+}
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+} */
+
+.todo > .title {
+  flex-grow: 1;
+}
+.todo > .completed {
+  order: 1;
 }
 div.todo:hover {
   filter: brightness(90%);
