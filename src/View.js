@@ -56,7 +56,6 @@ export default class View {
     });
     this.inputWrapper();
   }
-
   inputWrapper() {
     const input = document.getElementById('input');
     const textfield = this.createElement('input', 'text', 'todo');
@@ -90,6 +89,8 @@ export default class View {
     })
     return divWrapper;
   }
+  // Clicking a todo adds the clicked class.
+  // this expands the div, exposing more options like edit and move to another project
   divClick(event){
     if (!event.currentTarget.closest('.todo').classList.contains('clicked')){
       event.currentTarget.classList.add('clicked')
@@ -100,7 +101,8 @@ export default class View {
     //   event.target.classList.add('clicked')
     // }
   }
-
+  // Returns the keyParser. 
+  // The keyparser sorts out what element to create when a new todo is added
   _objectSorter(key, value) {
     const keyParser = {
       _title: value => {
@@ -127,6 +129,7 @@ export default class View {
     };
     return keyParser[key] ? keyParser[key](value) : false;
   }
+  // Called from controller
   bindAddTodo(callback) {
     // add enter functionallity
     // https://stackoverflow.com/questions/51791167/combining-mouse-click-and-enter-key-press-in-the-same-event-listener
@@ -136,6 +139,7 @@ export default class View {
       }
     });
   }
+  // Called from controller
   bindSwitchComplete(callback) {
     document.body.addEventListener('click', event => {
       if (event.target.type === 'checkbox') {
@@ -176,7 +180,6 @@ export default class View {
     this.appendTodo(this.objectToDiv(newTodo));
     this._resetInput();
   }
-
   _resetInput() {
     const textInput = document.querySelector('.text.todo');
     const dateInput = document.querySelector('.date.todo');

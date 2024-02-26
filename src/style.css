@@ -24,8 +24,10 @@
 }
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--color1);
+  /* background-color: var(--color1); */
+  background-color: #6d6d64;
   width: 100vw;
+
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -35,10 +37,12 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: 400;
+  color: white;
   font-size: 32px;
 }
 a {
   text-decoration: none;
+  color: white;
 }
 ul {
   list-style-type: none;
@@ -63,7 +67,7 @@ ul {
 }
 #input input {
   border: none;
-  background-color: var(--lemon-chiffon);
+  background-color: white;
   font-family: 'Poppins', sans-serif;
   width: 100%;
   height: 40%;
@@ -94,7 +98,9 @@ input:focus {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  background-color: var(--color1);
+  /* background-color: var(--color1); */
+  background-color: #6d6d64;
+
   grid-area: 2 / 2 / 4 / 3;
   display: grid;
   justify-items: center;
@@ -113,7 +119,7 @@ input:focus {
   padding: 0;
 }
 .todo {
-  background-color: var(--non-photo-blue);
+  background-color: white;
   flex-shrink: 0;
   box-sizing: border-box;
   align-items: center;
