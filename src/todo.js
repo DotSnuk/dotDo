@@ -6,7 +6,6 @@ export default class ToDo {
     this.id = id;
     this.title = title;
     this.priority;
-    this.description;
     this.dateCreated = new Date();
     this.dueDate;
     this.notes;

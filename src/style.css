@@ -109,7 +109,7 @@ input:focus {
   width: 90%;
   flex-direction: column;
   align-items: center;
-
+  overflow-y: hidden;
   gap: 4px;
 }
 .todo {
@@ -117,7 +117,8 @@ input:focus {
   box-sizing: border-box;
   align-items: center;
   padding-left: 10px;
-  height: 30px;
+  /* height: 30px; */
+  flex-basis: 40px;
   border: 1px solid black;
   width: 100%;
   display: grid;
