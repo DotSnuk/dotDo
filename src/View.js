@@ -87,6 +87,7 @@ export default class View {
     this.content.appendChild(wrapper);
     todos.forEach(todo => {
       const todoDiv = this.objectToDiv(todo);
+      todoDiv.classList.add('todo');
       todoDiv.addEventListener('click', event => {
         this.divClick(event);
       });
@@ -114,7 +115,6 @@ export default class View {
   objectToDiv(object) {
     // perhaps add what to check in the if statement
     const divWrapper = this.createElement('div');
-    divWrapper.classList.add('todo');
     for (const [key, value] of Object.entries(object)) {
       if (key === 'id') divWrapper.dataset.id = value;
       if (key === 'title' || key === '_dueDate' || key === 'completedBool') {
@@ -220,6 +220,7 @@ export default class View {
     // console.log(date.value);
     const newTodo = check();
     const todoDiv = this.objectToDiv(newTodo);
+    todoDiv.classList.add('todo');
     this.appendTodo(todoDiv);
     todoDiv.addEventListener('click', event => {
       // event.currentTarget.classList.add('clicked')
