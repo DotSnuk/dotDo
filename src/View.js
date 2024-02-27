@@ -33,7 +33,7 @@ export default class View {
     this._initProjects();
   }
   _initInbox() {
-    const ulInbox = this.createElement('ul');
+    const ulInbox = this.createElement('ul', 'inbox');
     this.sidebar.appendChild(ulInbox);
     const li = this.createElement('li');
     ulInbox.appendChild(li);
@@ -190,18 +190,6 @@ export default class View {
         callback(todoId);
       }
     });
-  }
-  fillWithInbox(callback) {
-    const div = document.getElementById('fill');
-    const dataFromModel = callback();
-    let todo;
-    dataFromModel.forEach(data => {
-      for (const [key, value] of Object.entries(data)) {
-        todo += `${key} ${value}`;
-      }
-      todo += '\n';
-    });
-    div.innerText = todo;
   }
   appendDiv(div, parentId) {
     const container = document.getElementById(parentId);
