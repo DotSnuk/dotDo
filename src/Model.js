@@ -22,7 +22,9 @@ export default class Model {
     return project;
   }
   newProject(title) {
-    this.projects.push(this.createProject(title));
+    const newProject = this.createProject(title);
+    this.projects.push(newProject);
+    return newProject;
   }
   addToProject(todo, project = this.inbox) {
     project.projectList.push(todo);
@@ -31,6 +33,7 @@ export default class Model {
     const todo = new ToDo(this.idCounter, title);
     this.increaseIdCounter();
     if (optional.length > 0) {
+      console.log();
       todo.dueDate = optional[0];
     }
     this.addToProject(todo);

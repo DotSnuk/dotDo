@@ -32,32 +32,52 @@ export default class View {
     this._initInbox();
     this._initProjects();
   }
-  _initInbox(){
+  _initInbox() {
     const ulInbox = this.createElement('ul');
     this.sidebar.appendChild(ulInbox);
-    const li = this.createElement('li')
-    ulInbox.appendChild(li)
-    const a = this.createElement('a')
-    a.innerText = 'Inbox'
+    const li = this.createElement('li');
+    ulInbox.appendChild(li);
+    const a = this.createElement('a');
+    a.innerText = 'Inbox';
     a.href = '#';
-    li.appendChild(a)
+    li.appendChild(a);
   }
-  _initProjects(){
-    const ulProjects = this.createElement('ul')
+  _initProjects() {
+    const ulProjects = this.createElement('ul');
     this.sidebar.appendChild(ulProjects);
-    const li = this.createElement('li')
+    const li = this.createElement('li');
     ulProjects.appendChild(li);
     const a = this.createElement('a');
-    a.innerText = 'Projects'
-    a.href = '#'
-    li.appendChild(a)
-    const liNew = this.createElement('li')
-    ulProjects.appendChild(liNew)
-    const aP = this.createElement('a')
-    aP.innerText = 'new project'
-    aP.href = '#'
-    liNew.appendChild(aP)
+    a.innerText = 'Projects';
+    a.href = '#';
+    li.appendChild(a);
+    const liNew = this.createElement('li');
+    ulProjects.appendChild(liNew);
+    const ap = this.createElement('a');
+    ap.innerText = 'new project';
+    ap.href = '#';
+    liNew.appendChild(ap);
+
+    this.createDialog();
+    ap.addEventListener('click', () => {
+      document.querySelector('dialog').showModal();
+    });
   }
+  createDialog() {
+    const dialog = this.createElement('dialog');
+    const form = this.createElement('form');
+    dialog.appendChild(form);
+    const inputText = this.createElement('input', 'text', 'project');
+    inputText.setAttribute('type', 'text');
+    form.appendChild(inputText);
+    const button = this.createElement('input');
+    button.setAttribute('type', 'button');
+    button.value = 'add';
+    button.id = 'add-project';
+    form.appendChild(button);
+    document.body.appendChild(dialog);
+  }
+
   initContent(todos) {
     const container = this.createElement('div');
     const wrapper = this.createElement('div');
@@ -66,7 +86,11 @@ export default class View {
     this.content.appendChild(container);
     this.content.appendChild(wrapper);
     todos.forEach(todo => {
-      this.appendTodo(this.objectToDiv(todo));
+      const todoDiv = this.objectToDiv(todo);
+      todoDiv.addEventListener('click', event => {
+        this.divClick(event);
+      });
+      this.appendTodo(todoDiv);
     });
     this.inputWrapper();
   }
@@ -93,33 +117,29 @@ export default class View {
     divWrapper.classList.add('todo');
     for (const [key, value] of Object.entries(object)) {
       if (key === 'id') divWrapper.dataset.id = value;
-      if (key === '_title' || key === '_dueDate' || key === 'completedBool' ) {
+      if (key === 'title' || key === '_dueDate' || key === 'completedBool') {
         divWrapper.appendChild(this._objectSorter(key, value));
       }
     }
-    divWrapper.addEventListener('click', event => {
-      // event.currentTarget.classList.add('clicked')
-      this.divClick(event)
-    })
     return divWrapper;
   }
   // Clicking a todo adds the clicked class.
   // this expands the div, exposing more options like edit and move to another project
-  divClick(event){
-    if (!event.currentTarget.closest('.todo').classList.contains('clicked')){
-      event.currentTarget.classList.add('clicked')
+  divClick(event) {
+    if (!event.currentTarget.closest('.todo').classList.contains('clicked')) {
+      event.currentTarget.classList.add('clicked');
     } else {
-      event.currentTarget.classList.remove('clicked')
+      event.currentTarget.classList.remove('clicked');
     }
     // if (!event.target.closest('.todo').classList.contains('clicked')){
     //   event.target.classList.add('clicked')
     // }
   }
-  // Returns the keyParser. 
+  // Returns the keyParser.
   // The keyparser sorts out what element to create when a new todo is added
   _objectSorter(key, value) {
     const keyParser = {
-      _title: value => {
+      title: value => {
         const div = this.createElement('div');
         div.classList.add('title');
         div.innerText = value;
@@ -150,6 +170,14 @@ export default class View {
     document.body.addEventListener('click', event => {
       if (event.target.id === 'add-todo') {
         this.addTodo(callback);
+      }
+    });
+  }
+  // Called from controller
+  bindAddProject(callback) {
+    document.body.addEventListener('click', event => {
+      if (event.target.id === 'add-project') {
+        this.addProject(callback);
       }
     });
   }
@@ -191,8 +219,20 @@ export default class View {
     };
     // console.log(date.value);
     const newTodo = check();
-    this.appendTodo(this.objectToDiv(newTodo));
+    const todoDiv = this.objectToDiv(newTodo);
+    this.appendTodo(todoDiv);
+    todoDiv.addEventListener('click', event => {
+      // event.currentTarget.classList.add('clicked')
+      this.divClick(event);
+    });
     this._resetInput();
+  }
+  addProject(callback) {
+    const dataFromText = document.querySelector('.text.project').value;
+    if (dataFromText === '') return;
+    const newProject = callback(dataFromText);
+    console.log(newProject);
+    // return?
   }
   _resetInput() {
     const textInput = document.querySelector('.text.todo');

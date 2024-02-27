@@ -11,12 +11,12 @@ export default class ToDo {
     this.notes;
     this.completedBool = false;
   }
-  set title(value) {
-    this._title = value;
-  }
-  get title() {
-    return this._title;
-  }
+  // set title(value) {
+  //   this._title = value;
+  // }
+  // get title() {
+  //   return this._title;
+  // }
   set dateCreated(value) {
     this._date = value;
   }
