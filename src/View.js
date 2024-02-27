@@ -29,20 +29,34 @@ export default class View {
     header.appendChild(titleWrapper);
   }
   initSidebar() {
-    const ul = this.createElement('ul');
-    this.sidebar.appendChild(ul);
-    for (let i = 0; i < 2; i++) {
-      const li = this.createElement('li');
-      ul.appendChild(li);
-      const a = this.createElement('a');
-      a.href = '#';
-      if (i === 0) {
-        a.innerText = 'Inbox';
-      } else {
-        a.innerText = 'Projects';
-      }
-      li.appendChild(a);
-    }
+    this._initInbox();
+    this._initProjects();
+  }
+  _initInbox(){
+    const ulInbox = this.createElement('ul');
+    this.sidebar.appendChild(ulInbox);
+    const li = this.createElement('li')
+    ulInbox.appendChild(li)
+    const a = this.createElement('a')
+    a.innerText = 'Inbox'
+    a.href = '#';
+    li.appendChild(a)
+  }
+  _initProjects(){
+    const ulProjects = this.createElement('ul')
+    this.sidebar.appendChild(ulProjects);
+    const li = this.createElement('li')
+    ulProjects.appendChild(li);
+    const a = this.createElement('a');
+    a.innerText = 'Projects'
+    a.href = '#'
+    li.appendChild(a)
+    const liNew = this.createElement('li')
+    ulProjects.appendChild(liNew)
+    const aP = this.createElement('a')
+    aP.innerText = 'new project'
+    aP.href = '#'
+    liNew.appendChild(aP)
   }
   initContent(todos) {
     const container = this.createElement('div');
