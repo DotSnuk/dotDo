@@ -9,7 +9,7 @@ export default class AppController {
     this.view.bindSwitchComplete(this.handleSwitchComplete);
     this.view.bindAddProject(this.handleAddProject);
     // for initial placeholder todo's
-    this.view.init(this.model.getInbox());
+    this.view.init(this.model.getProject(0));
   }
   handleGetInbox = () => {
     return this.model.getInbox();

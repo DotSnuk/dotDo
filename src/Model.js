@@ -16,7 +16,6 @@ export default class Model {
     this.addTodo('laundry');
   }
   increaseIdCounter(selector) {
-    // this.idCounterTodo++;
     const select = {
       todo: () => {
         this.idCounterTodo++;
@@ -28,6 +27,7 @@ export default class Model {
   }
   createProject(title) {
     const project = { title, id: this.idCounterProject, projectList: [] };
+    this.increaseIdCounter('project');
     return project;
   }
   newProject(title) {
@@ -47,6 +47,16 @@ export default class Model {
     }
     this.addToProject(todo);
     return todo;
+  }
+  getProject(id) {
+    if (parseInt(id) === 0) {
+      return this.inbox;
+    } else {
+      const project = this.projects.find(
+        project => project.id === parseInt(id),
+      );
+      return project;
+    }
   }
   switchComplete(todoId) {
     // can be optimized. if projects.length > 0...

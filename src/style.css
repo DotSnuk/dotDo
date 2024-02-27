@@ -40,6 +40,12 @@ body {
   color: white;
   font-size: 32px;
 }
+h2 {
+  color: white;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
 a {
   text-decoration: none;
   color: white;

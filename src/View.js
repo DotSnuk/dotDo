@@ -78,14 +78,17 @@ export default class View {
     form.appendChild(button);
     document.body.appendChild(dialog);
   }
-  initContent(todos) {
+  initContent(project) {
     const container = this.createElement('div');
     const wrapper = this.createElement('div');
+    const header = this.createElement('h2', 'title');
+    header.innerText = project.title;
     container.id = 'todo-container';
     wrapper.id = 'input';
     this.content.appendChild(container);
     this.content.appendChild(wrapper);
-    todos.forEach(todo => {
+    container.appendChild(header);
+    project.projectList.forEach(todo => {
       const todoDiv = this.objectToElement(todo, 'div');
       todoDiv.classList.add('todo');
       todoDiv.addEventListener('click', event => {
