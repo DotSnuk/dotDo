@@ -11,9 +11,9 @@ export default class AppController {
     // for initial placeholder todo's
     this.view.init(this.model.getProject(0));
   }
-  handleGetInbox = () => {
-    return this.model.getInbox();
-  };
+  // handleGetInbox = () => {
+  //   return this.model.getInbox();
+  // };
   handleSwitchComplete = todoId => {
     this.model.switchComplete(todoId);
   };

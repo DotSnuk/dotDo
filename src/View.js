@@ -5,11 +5,11 @@ export default class View {
   constructor() {
     this.content = document.getElementById('content');
     this.sidebar = document.getElementById('sidebar');
-    this.currentProjectId = 0;
   }
-  init(todos) {
+  init(project) {
     this.initSidebar();
-    this.initContent(todos);
+    this.initContent();
+    this.loadProject(project);
     this.initHeader();
   }
   createElement(element, ...classes) {
@@ -58,7 +58,6 @@ export default class View {
     ap.innerText = 'new project';
     ap.href = '#';
     liNew.appendChild(ap);
-
     this.createDialog();
     ap.addEventListener('click', () => {
       document.querySelector('dialog').showModal();
@@ -78,16 +77,21 @@ export default class View {
     form.appendChild(button);
     document.body.appendChild(dialog);
   }
-  initContent(project) {
+  initContent() {
     const container = this.createElement('div');
     const wrapper = this.createElement('div');
     const header = this.createElement('h2', 'title');
-    header.innerText = project.title;
     container.id = 'todo-container';
     wrapper.id = 'input';
     this.content.appendChild(container);
     this.content.appendChild(wrapper);
     container.appendChild(header);
+    this.inputWrapper();
+  }
+  loadProject(project) {
+    this._removePreviousTodoDivs();
+    const header = document.querySelector('h2.title');
+    header.innerText = project.title;
     project.projectList.forEach(todo => {
       const todoDiv = this.objectToElement(todo, 'div');
       todoDiv.classList.add('todo');
@@ -96,7 +100,13 @@ export default class View {
       });
       this.appendDiv(todoDiv, 'todo-container');
     });
-    this.inputWrapper();
+  }
+  _removePreviousTodoDivs() {
+    const container = document.getElementById('todo-container');
+    const divs = document.querySelectorAll('#todo-container > div');
+    divs.forEach(div => {
+      container.removeChild(div);
+    });
   }
   inputWrapper() {
     const input = document.getElementById('input');
@@ -225,8 +235,10 @@ export default class View {
     if (dataFromText === '') return;
     const newProject = callback(dataFromText);
     const projectDiv = this.objectToElement(newProject, 'a');
+    projectDiv.dataset.id = newProject.id;
     projectDiv.classList.add('project');
     this.projectToSidebar(projectDiv);
+    this.loadProject(newProject);
     this._resetInput();
     // return?
   }

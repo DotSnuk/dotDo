@@ -4,6 +4,7 @@ export default class Model {
   constructor() {
     this.idCounterTodo = 0;
     this.idCounterProject = 0;
+    this.currentProjectId = 0;
     this.inbox = this.createProject('Inbox');
     this.projects = [];
     this.init();
@@ -25,6 +26,9 @@ export default class Model {
       },
     }[selector]();
   }
+  setCurrentProjectId(id) {
+    this.currentProjectId = id;
+  }
   createProject(title) {
     const project = { title, id: this.idCounterProject, projectList: [] };
     this.increaseIdCounter('project');
@@ -33,19 +37,20 @@ export default class Model {
   newProject(title) {
     const newProject = this.createProject(title);
     this.projects.push(newProject);
+    this.setCurrentProjectId(newProject.id);
     return newProject;
   }
-  addToProject(todo, project = this.inbox) {
+  addToProject(todo, projectId) {
+    const project = this.getProject(projectId);
     project.projectList.push(todo);
   }
   addTodo(title, ...optional) {
     const todo = new ToDo(this.idCounterTodo, title);
     this.increaseIdCounter('todo');
     if (optional.length > 0) {
-      console.log();
       todo.dueDate = optional[0];
     }
-    this.addToProject(todo);
+    this.addToProject(todo, this.currentProjectId);
     return todo;
   }
   getProject(id) {
