@@ -2,7 +2,8 @@ import ToDo from './Todo.js';
 
 export default class Model {
   constructor() {
-    this.idCounter = 0;
+    this.idCounterTodo = 0;
+    this.idCounterProject = 0;
     this.inbox = this.createProject('Inbox');
     this.projects = [];
     this.init();
@@ -14,11 +15,19 @@ export default class Model {
     this.addTodo('cook dinner');
     this.addTodo('laundry');
   }
-  increaseIdCounter() {
-    this.idCounter++;
+  increaseIdCounter(selector) {
+    // this.idCounterTodo++;
+    const select = {
+      todo: () => {
+        this.idCounterTodo++;
+      },
+      project: () => {
+        this.idCounterProject++;
+      },
+    }[selector]();
   }
   createProject(title) {
-    const project = { title, projectList: [] };
+    const project = { title, id: this.idCounterProject, projectList: [] };
     return project;
   }
   newProject(title) {
@@ -30,8 +39,8 @@ export default class Model {
     project.projectList.push(todo);
   }
   addTodo(title, ...optional) {
-    const todo = new ToDo(this.idCounter, title);
-    this.increaseIdCounter();
+    const todo = new ToDo(this.idCounterTodo, title);
+    this.increaseIdCounter('todo');
     if (optional.length > 0) {
       console.log();
       todo.dueDate = optional[0];

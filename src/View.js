@@ -5,6 +5,7 @@ export default class View {
   constructor() {
     this.content = document.getElementById('content');
     this.sidebar = document.getElementById('sidebar');
+    this.currentProjectId = 0;
   }
   init(todos) {
     this.initSidebar();
@@ -77,7 +78,6 @@ export default class View {
     form.appendChild(button);
     document.body.appendChild(dialog);
   }
-
   initContent(todos) {
     const container = this.createElement('div');
     const wrapper = this.createElement('div');
@@ -227,6 +227,7 @@ export default class View {
     this._resetInput();
     // return?
   }
+  importProject(project) {}
   projectToSidebar(projectDiv) {
     const ul = document.querySelector('ul.projects');
     const li = this.createElement('li');
