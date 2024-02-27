@@ -43,7 +43,7 @@ export default class View {
     li.appendChild(a);
   }
   _initProjects() {
-    const ulProjects = this.createElement('ul');
+    const ulProjects = this.createElement('ul', 'projects');
     this.sidebar.appendChild(ulProjects);
     const li = this.createElement('li');
     ulProjects.appendChild(li);
@@ -51,7 +51,7 @@ export default class View {
     a.innerText = 'Projects';
     a.href = '#';
     li.appendChild(a);
-    const liNew = this.createElement('li');
+    const liNew = this.createElement('li', 'last');
     ulProjects.appendChild(liNew);
     const ap = this.createElement('a');
     ap.innerText = 'new project';
@@ -86,12 +86,12 @@ export default class View {
     this.content.appendChild(container);
     this.content.appendChild(wrapper);
     todos.forEach(todo => {
-      const todoDiv = this.objectToDiv(todo);
+      const todoDiv = this.objectToElement(todo, 'div');
       todoDiv.classList.add('todo');
       todoDiv.addEventListener('click', event => {
         this.divClick(event);
       });
-      this.appendTodo(todoDiv);
+      this.appendDiv(todoDiv, 'todo-container');
     });
     this.inputWrapper();
   }
@@ -112,16 +112,16 @@ export default class View {
     input.appendChild(inputDate);
     input.appendChild(button);
   }
-  objectToDiv(object) {
+  objectToElement(object, element) {
     // perhaps add what to check in the if statement
-    const divWrapper = this.createElement('div');
+    const wrapper = this.createElement(element);
     for (const [key, value] of Object.entries(object)) {
-      if (key === 'id') divWrapper.dataset.id = value;
+      if (key === 'id') wrapper.dataset.id = value;
       if (key === 'title' || key === '_dueDate' || key === 'completedBool') {
-        divWrapper.appendChild(this._objectSorter(key, value));
+        wrapper.appendChild(this._objectSorter(key, value));
       }
     }
-    return divWrapper;
+    return wrapper;
   }
   // Clicking a todo adds the clicked class.
   // this expands the div, exposing more options like edit and move to another project
@@ -178,6 +178,7 @@ export default class View {
     document.body.addEventListener('click', event => {
       if (event.target.id === 'add-project') {
         this.addProject(callback);
+        document.querySelector('dialog').close();
       }
     });
   }
@@ -202,9 +203,9 @@ export default class View {
     });
     div.innerText = todo;
   }
-  appendTodo(todoDiv) {
-    const todoContainer = document.getElementById('todo-container');
-    todoContainer.appendChild(todoDiv);
+  appendDiv(div, parentId) {
+    const container = document.getElementById(parentId);
+    container.appendChild(div);
   }
   addTodo(callback) {
     const dataFromText = document.querySelector('.text.todo').value;
@@ -219,9 +220,9 @@ export default class View {
     };
     // console.log(date.value);
     const newTodo = check();
-    const todoDiv = this.objectToDiv(newTodo);
+    const todoDiv = this.objectToElement(newTodo, 'div');
     todoDiv.classList.add('todo');
-    this.appendTodo(todoDiv);
+    this.appendDiv(todoDiv, 'todo-container');
     todoDiv.addEventListener('click', event => {
       // event.currentTarget.classList.add('clicked')
       this.divClick(event);
@@ -232,13 +233,22 @@ export default class View {
     const dataFromText = document.querySelector('.text.project').value;
     if (dataFromText === '') return;
     const newProject = callback(dataFromText);
-    console.log(newProject);
+    const projectDiv = this.objectToElement(newProject, 'a');
+    projectDiv.classList.add('project');
+    this.projectToSidebar(projectDiv);
+    this._resetInput();
     // return?
   }
+  projectToSidebar(projectDiv) {
+    const ul = document.querySelector('ul.projects');
+    const li = this.createElement('li');
+    ul.appendChild(li);
+    li.appendChild(projectDiv);
+  }
   _resetInput() {
-    const textInput = document.querySelector('.text.todo');
+    const textInput = document.querySelectorAll('.text');
     const dateInput = document.querySelector('.date.todo');
+    textInput.forEach(text => (text.value = ''));
     dateInput.value = '';
-    textInput.value = '';
   }
 }
